@@ -127,10 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Exception.cpp" />
+    <ClCompile Include="keeper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sign.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="class.h" />
+    <ClInclude Include="Exception.h" />
+    <ClInclude Include="keeper.h" />
+    <ClInclude Include="sign.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

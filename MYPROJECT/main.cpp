@@ -4,139 +4,102 @@
 
 using namespace std;
 
-class SIGN {
-private:
-    string lastName;
-    string firstName;
-    string zodiacSign;
-    int birthday[3];
 
-public:
-    SIGN(string last, string first, string sign, int day, int month, int year) {
-        lastName = last;
-        firstName = first;
-        zodiacSign = sign;
-        birthday[0] = day;
-        birthday[1] = month;
-        birthday[2] = year;
-    }
+#include "keeper.h"
+#include "sign.h"
+#include "Exception.h"
 
-    string getLastName() { return lastName; }
-    string getFirstName() { return firstName; }
-    string getZodiacSign() { return zodiacSign; }
-    int* getBirthday() { return birthday; }
-
-    friend ostream& operator<<(ostream& os, const SIGN& obj);
-};
-
-ostream& operator<<(ostream& os, const SIGN& obj) {
-    os << "Last name: " << obj.lastName << endl;
-    os << "First name: " << obj.firstName << endl;
-    os << "Zodiac sign: " << obj.zodiacSign << endl;
-    os << "Birthday: " << obj.birthday[0] << "/" << obj.birthday[1] << "/" << obj.birthday[2] << endl;
-    return os;
+#include <iostream>
+#include <fstream>
+void showMenu() {
+    std::cout << "\nMenu:\n"
+        "1. Add new profile\n"
+        "2. Delete profile by index\n"
+        "3. Find profiles by zodiac sign\n"
+        "4. Show all profiles\n"
+        "5. Exit\n";
 }
 
-class Keeper {
-private:
-    SIGN** signs;
-    int numSigns;
 
-public:
-    Keeper() {
-        signs = new SIGN * [1];
-        numSigns = 0;
-    }
 
-    void addSign(SIGN* sign) {
-        SIGN** temp = new SIGN * [numSigns + 1];
-        for (int i = 0; i < numSigns; i++) {
-            temp[i] = signs[i];
-        }
-        temp[numSigns] = sign;
-        delete[] signs;
-        signs = temp;
-        numSigns++;
-    }
-
-    void removeSign(int index) {
-        if (index < 0 || index >= numSigns) return;
-        SIGN** temp = new SIGN * [numSigns - 1];
-        for (int i = 0; i < index; i++) {
-            temp[i] = signs[i];
-        }
-        for (int i = index + 1; i < numSigns; i++) {
-            temp[i - 1] = signs[i];
-        }
-        delete[] signs;
-        signs = temp;
-        numSigns--;
-    }
-
-    void printSigns() {
-        for (int i = 0; i < numSigns; i++) {
-            cout << *signs[i] << endl;
-        }
-    }
-
-    int getnumSigns() {
-        return this->numSigns;
-    }
-
-    SIGN* getSign(int i) {
-        return this->signs[i];
-    }
-
-    void sortByBirthDate() {
-        sort(signs, signs + numSigns, [](SIGN* a, SIGN* b) {
-            return compareSignDates(a, b);
-            });
-    }
-
-    static bool compareSignDates(SIGN* a, SIGN* b) {
-        if (a->getBirthday()[2] != b->getBirthday()[2]) {
-            return a->getBirthday()[2] < b->getBirthday()[2];
-        }
-        else if (a->getBirthday()[1] != b->getBirthday()[1]) {
-            return a->getBirthday()[1] < b->getBirthday()[1];
-        }
-        else {
-            return a->getBirthday()[0] < b->getBirthday()[0];
-        }
-    }
-};
 
 
 int main() {
+    Keeper keeper;
+    try {
+        while (true) {
+            showMenu();
+            int choice;
+            std::cout << "\nEnter your choice:\n";
+            std::cin >> choice;
+            switch (choice) {
+            case 1: {
+                string firstName;
+                string lastName;
+                string userSign;
+                int day;
+                int month;
+                int year;
 
-    Keeper recordKeeper;
+                cout << "Enter the first name" << endl;
+                cin >> firstName;
 
+                cout << "Enter the last name" << endl;
+                cin >> lastName;
 
-    recordKeeper.addSign(new SIGN("Doe", "John", "Aries", 5, 3, 1999));
-    recordKeeper.addSign(new SIGN("Smith", "Jane", "Scorpio", 17, 8, 1995));
-    recordKeeper.addSign(new SIGN("Smith", "Lilly", "Aries", 15, 8, 1995));
-    recordKeeper.addSign(new SIGN("Smith", "Kate", "Leo", 16, 8, 1995));
-    recordKeeper.sortByBirthDate();
-    string name;
-    recordKeeper.removeSign(2);
-    for (int i = 0; i < recordKeeper.getnumSigns(); i++) {
-        cout << *recordKeeper.getSign(i) << endl;
-    }
-    getchar();
-    cout << "Enter name: ";
-    cin >> name;
+                cout << "Enter the user zodiac sign" << endl;
+                cin >> userSign;
 
-    bool found = false;
-    for (int i = 0; i < recordKeeper.getnumSigns(); i++) {
-        if (recordKeeper.getSign(i)->getFirstName() == name) {
-            cout << *recordKeeper.getSign(i) << endl;
-            found = true;
+                cout << "Enter the user day month and year of birth" << endl;
+                cin >> day >> month >> year;
+
+                keeper.addSign(new SIGN(lastName, firstName, userSign, day, month, year));
+                keeper.sortByBirthDate();
+                break;
+            }
+            case 2: {
+                int index;
+                cout << "Enter the index:" << endl;
+                cin >> index;
+                keeper.removeSign(index);
+                break;
+            }
+            case 3: {
+                string zodiacSign;
+                cout << "Enter zodiac sign:" << endl;
+                cin >> zodiacSign;
+                bool found = false;
+                for (int i = 0; i < keeper.getnumSigns(); i++) {
+                    if (keeper.getSign(i)->getZodiacSign() == zodiacSign) {
+                        cout << *keeper.getSign(i) << endl;
+                        found = true;
+                    }
+                }
+
+                if (!found) {
+                    cout << "No record found for " << zodiacSign << endl;
+                }
+                break;
+            }
+            case 4: {
+                for (int i = 0; i < keeper.getnumSigns(); i++) {
+                    cout << *keeper.getSign(i) << endl;
+                }
+                break;
+                return 0;
+            }
+            case 5: {
+                std::cout << "\nExiting...\n";
+                return 0;
+            }
+            default:
+                std::cout << "\nInvalid choice!\n";
+                break;
+            }
         }
     }
-
-    if (!found) {
-        cout << "No record found for " << name << endl;
+    catch (Exception e) {
+        std::cout << "\nError: " << e << std::endl;
     }
-
     return 0;
 }
