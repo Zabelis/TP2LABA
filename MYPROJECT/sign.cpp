@@ -35,3 +35,22 @@ SIGN::SIGN(const SIGN& other) {
     this->zodiacSign = other.zodiacSign;
     cout << "Sign copy constructor called" << endl;
 }
+
+void SIGN::setFirstName(string name) {
+    this->firstName = name;
+}
+
+void SIGN::setLastName(string name) {
+    this->lastName = name;
+}
+
+void SIGN::setBirthday(int day, int month, int year) {
+    this->birthday[0] = day;
+    this->birthday[1] = month;
+    this->birthday[2] = year;
+
+}
+
+void SIGN::setZodiacSign(string sign) {
+    this->zodiacSign = sign;
+}

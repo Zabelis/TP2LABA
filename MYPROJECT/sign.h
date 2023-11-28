@@ -21,6 +21,10 @@ public:
 	string getLastName() { return lastName; }
 	string getFirstName() { return firstName; }
 	string getZodiacSign() { return zodiacSign; }
+	void setFirstName(string name);
+	void setLastName(string name);
+	void setBirthday(int day, int month, int year);
+	void setZodiacSign(string sign);
 	int* getBirthday() { return birthday; }
 	friend ostream& operator<<(ostream& os, const SIGN& obj);
 

@@ -13,7 +13,7 @@ public:
     Keeper();
 
     void addSign(SIGN* sign);
-
+    void setSign(SIGN* profile, int index);
     void removeSign(int index);
 
     void printSigns();

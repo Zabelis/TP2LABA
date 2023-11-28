@@ -67,3 +67,8 @@ void Keeper::removeSign(int index) {
             return a->getBirthday()[0] < b->getBirthday()[0];
         }
     }
+
+    void Keeper::setSign(SIGN* profile, int index) {
+        this->signs[index] = profile;
+
+    }
