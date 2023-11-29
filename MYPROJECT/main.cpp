@@ -1,18 +1,15 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-
-using namespace std;
-
-
 #include "keeper.h"
 #include "sign.h"
 #include "Exception.h"
-
-#include <iostream>
 #include <fstream>
+
+using namespace std;
+
 void showMenu() {
-    std::cout << "\nMenu:\n"
+    cout << "\nMenu:\n"
         "1. Add new profile\n"
         "2. Delete profile by index\n"
         "3. Find profiles by zodiac sign\n"
@@ -44,13 +41,10 @@ int main() {
 
                 cout << "Enter the first name" << endl;
                 cin >> firstName;
-
                 cout << "Enter the last name" << endl;
                 cin >> lastName;
-
                 cout << "Enter the user zodiac sign" << endl;
                 cin >> userSign;
-
                 cout << "Enter the user day month and year of birth" << endl;
                 cin >> day >> month >> year;
 
@@ -79,7 +73,6 @@ int main() {
                         found = true;
                     }
                 }
-
                 if (!found) {
                     cout << "No record found for " << zodiacSign << endl;
                 }
@@ -133,7 +126,6 @@ int main() {
                         profile.setBirthday(day, month, year);
 
                     keeper.setSign(&profile, index);
-
                     keeper.sortByBirthDate();
                 }
                 else

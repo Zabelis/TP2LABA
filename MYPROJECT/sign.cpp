@@ -26,6 +26,25 @@ ostream& operator<<(ostream& os, const SIGN& obj) {
     return os;
 }
 
+istream& operator>>(istream& is, SIGN& obj) {
+    cout << "Enter day: \n";
+    is >> obj.birthday[0];
+    cout << "Enter month: \n";
+    is >> obj.birthday[1];
+    cout << "Enter year: \n";
+    is >> obj.birthday[2];
+    cout << "Enter zodiac sign: \n";
+    is >> obj.zodiacSign;
+
+    cout << "Enter first name: \n";
+    is >> obj.firstName;
+
+    cout << "Enter last name: \n";
+    is >> obj.lastName;
+
+    return is;
+}
+
 SIGN::SIGN(const SIGN& other) {
     this->firstName = other.firstName;
     this->lastName = other.lastName;
@@ -54,3 +73,4 @@ void SIGN::setBirthday(int day, int month, int year) {
 void SIGN::setZodiacSign(string sign) {
     this->zodiacSign = sign;
 }
+

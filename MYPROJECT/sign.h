@@ -27,6 +27,6 @@ public:
 	void setZodiacSign(string sign);
 	int* getBirthday() { return birthday; }
 	friend ostream& operator<<(ostream& os, const SIGN& obj);
-
+	friend istream& operator>>(istream& is, SIGN& obj);
 };
 
