@@ -133,6 +133,8 @@ int main() {
                         profile.setBirthday(day, month, year);
 
                     keeper.setSign(&profile, index);
+
+                    keeper.sortByBirthDate();
                 }
                 else
                     cout << "Invalid index!" << endl;
